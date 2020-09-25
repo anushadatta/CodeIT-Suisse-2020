@@ -5,7 +5,7 @@ logger = logging.getLogger(__name__)
 
 @app.route('/', methods=['GET'])
 def default_route():
-    return "Python Template";
+    return "Python Template"
 
 
 logger = logging.getLogger()
@@ -15,7 +15,6 @@ formatter = logging.Formatter(
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.INFO)
-
 
 
 if __name__ == "__main__":
