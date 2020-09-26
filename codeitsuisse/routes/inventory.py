@@ -55,9 +55,9 @@ str1 = "samsung"
 print(editDistDP(str1, str2)) 
 
 
-
 @app.route('/inventory-management', methods=['POST'])
 def edits_min():
+    print(data_list)
     data_list = request.get_json()
     response = []
     for data in data_list:
@@ -67,11 +67,11 @@ def edits_min():
         results = []
         for item in items:
             curr_result = editDistDP(search_string, item)
-            print(curr_result)
             results.append(curr_result)
         results.sort(key=lambda x:x[0])
         results = list(map(lambda x:x[1], results))
         response.append({"searchItemName":search_string,"searchResult":results[:10]})
+    print(response)
     return json.dumps(response)
 
 
