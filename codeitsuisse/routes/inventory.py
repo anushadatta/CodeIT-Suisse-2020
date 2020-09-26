@@ -59,6 +59,7 @@ print(editDistDP(str1, str2))
 @app.route('/inventory-management', methods=['POST'])
 def edits_min():
     data = request.get_json()[0]
+    print(data)
     search_string = data['searchItemName']
     items = data['items']
     items.sort()
