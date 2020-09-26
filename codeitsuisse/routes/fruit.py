@@ -18,7 +18,7 @@ def fruit():
 
     for fruit in data:
 
-        weight = 1
+        weight = 100
         result += (weight * data[fruit])
 
     return str(result)
