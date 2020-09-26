@@ -11,7 +11,7 @@ def create_gmo_sequence(gene):
     
 
     # Count characters in string 
-    print(gene)
+    print(logging.Debug(gene))
     count_dict = dict(Counter(gene))
     genes = ["A","G","C","T"]
     for i in genes:
@@ -62,11 +62,11 @@ def create_gmo_sequence(gene):
     # Sprinkle remaining characters without AAA formation
     result = ""
 
-    print(cc_count)
-    print(agct_count)
-    print(g_count)
-    print(t_count)
-    print(a_count)
+    # print(cc_count)
+    # print(agct_count)
+    # print(g_count)
+    # print(t_count)
+    # print(a_count)
     
 
     # adding ccs to the string
@@ -88,7 +88,7 @@ def create_gmo_sequence(gene):
         a_count -=a_s
         result+="A"*a_s+"T"
     result+=a_count*"A"
-    print(result)
+    # print(result)
     return result
 
 @app.route('/intelligent-farming', methods=['POST'])
