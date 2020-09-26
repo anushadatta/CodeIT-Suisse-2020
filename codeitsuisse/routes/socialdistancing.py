@@ -32,5 +32,5 @@ def socialdistancing():
     result = {}
     result["answers"] = combinations
 
-    return jsonify(result)
+    return json.dumps(result)
     
