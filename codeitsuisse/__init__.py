@@ -13,4 +13,5 @@ import codeitsuisse.routes.olympiad
 import codeitsuisse.routes.cluster
 import codeitsuisse.routes.gmo
 import codeitsuisse.routes.scribe
+import codeitsuisse.routes.socialdistancing
 
