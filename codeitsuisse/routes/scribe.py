@@ -51,7 +51,6 @@ def palindromeSubStrs(s):
 
 def encrypt(text,s):
     result = ""
-
     for i in range(len(text)):
         char = text[i]
         result += chr((ord(char) + s - 97) % 26 + 97)
@@ -108,10 +107,11 @@ def main(encrypted_string):
         return 0,original
     pal_info =  palindromeSubStrs(original)
     key = sum(map(ord,pal_info[0]))+pal_info[1]
+    print(key)
     count = 1
     curr_text = encrypt(original,key)
     for i in range(1000):
-        if curr_text!=encrypted_string:
+        if curr_text==encrypted_string:
             break
         pal_info =  palindromeSubStrs(curr_text)
         key = sum(map(ord,pal_info[0]))+pal_info[1]
