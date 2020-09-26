@@ -2,11 +2,15 @@ import logging
 import json
 import sympy
 import random
+import math
 from flask import request, jsonify;
 
 from codeitsuisse import app;
 
 logger = logging.getLogger(__name__)
+
+def choose(n, r):
+    return int(math.factorial(n) / (math.factorial(r) * math.factorial(n-r)))
 
 @app.route('/social-distancing', methods=['POST'])
 def socialdistancing():
@@ -21,7 +25,7 @@ def socialdistancing():
         people = dict_data["people"]
         spaces = dict_data["spaces"]
 
-        number_of_ways = 0
+        number_of_ways = choose(seats - (people-1)*spaces, people)
 
         combinations[key] = number_of_ways
 
