@@ -10,9 +10,9 @@ logger = logging.getLogger(__name__)
 
 @app.route('/fruitbasket', methods=['POST'])
 def fruit():
-    data = request.get_json()
+    data = request.get_data()
     print(data)
-    # data = json.loads(data)
+    data = json.loads(data)
     fruits_count = []
     result = 0
 
