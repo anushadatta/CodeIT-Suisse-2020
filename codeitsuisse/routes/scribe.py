@@ -43,6 +43,8 @@ def palindromeSubStrs(s):
     for i, val in m.items():
         if len(i)>1:
             res.append(i)
+    if(len(res)==0):
+        return "",0
     maxima = max(res,key=lambda x:len(x))
     # a = sum(map(lambda x:ord(x),maxima)) +len(res)
     return maxima,len(res)
@@ -55,7 +57,7 @@ def encrypt(text,s):
         result += chr((ord(char) + s - 97) % 26 + 97)
     return result
 
-text = "xntlhfgsvzmssndloknxaqtsdenqbdenqsgnrdbzrdr"
+# text = "xntlhfgsvzmssndloknxaqtsdenqbdenqsgnrdbzrdr"
 
 def calc_score(inp):
     freq_dict = {
@@ -107,6 +109,8 @@ def main(encrypted_string):
     count = 1
     curr_text = encrypt(original,key)
     for i in range(1000):
+        if curr_text!=encrypted_string:
+            break
         pal_info =  palindromeSubStrs(curr_text)
         key = sum(map(ord,pal_info[0]))+pal_info[1]
         count += 1
