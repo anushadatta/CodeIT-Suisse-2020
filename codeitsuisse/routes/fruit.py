@@ -18,7 +18,8 @@ def fruit():
 
     for fruit in data:
 
-        weight = 100
+        weight = random.randint(1,100)
+        print("{}:{}".format(weight,fruit))
         result += (weight * data[fruit])
 
     return str(result)
