@@ -106,6 +106,8 @@ def main(encrypted_string):
     if original == encrypted_string:
         return 0,original
     pal_info =  palindromeSubStrs(original)
+    start = original.find(pal_info[0])
+    end = start + len(pal_info[0])
     key = sum(map(ord,pal_info[0]))+pal_info[1]
     print(key)
     count = 1
@@ -113,8 +115,8 @@ def main(encrypted_string):
     while True:
         if curr_text==encrypted_string:
             break
-        pal_info =  palindromeSubStrs(curr_text)
-        key = sum(map(ord,pal_info[0]))+pal_info[1]
+        # pal_info =  palindromeSubStrs(curr_text)
+        key = sum(map(ord,encrypted_string[start:end]))+pal_info[1]
         count += 1
         curr_text = encrypt(curr_text,key)
 
