@@ -10,5 +10,6 @@ import codeitsuisse.routes.fruit
 import codeitsuisse.routes.inventory
 import codeitsuisse.routes.clean
 import codeitsuisse.routes.olympiad
+import codeitsuisse.routes.cluster
 
 
