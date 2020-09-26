@@ -10,16 +10,16 @@ logger = logging.getLogger(__name__)
 
 @app.route('/fruitbasket', methods=['POST'])
 def fruit():
-    data = request.get_json()
+    data = request.get_data()
+    print(data)
+    data = json.loads(data)
     fruits_count = []
+    result = 0
 
     for fruit in data:
-        fruits_count.append(data[fruit])
-    
-    result = 0
-    for i in range(len(fruits_count)):
-        weight = random.randint(1,100)
 
-        result += (weight * fruits_count[i])
-
+        weight = random.randint(20,80)
+        print("{}:{}".format(weight,fruit))
+        result += (weight * data[fruit])
+    print(result)
     return str(result)
