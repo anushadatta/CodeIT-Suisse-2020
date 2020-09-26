@@ -100,6 +100,8 @@ def gmo():
         gmo_string = gmo_dict["geneSequence"]
         
         answer = create_gmo_sequence(gmo_string)
+        print(gmo_string)
+        print(answer)
         data["list"][gmo_dict_index]["geneSequence"] = answer
 
     return Response(response = json.dumps(data),status=200,mimetype="application/json")
