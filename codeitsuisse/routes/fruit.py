@@ -21,5 +21,5 @@ def fruit():
         weight = random.randint(1,100)
         print("{}:{}".format(weight,fruit))
         result += (weight * data[fruit])
-
+    print(result)
     return str(result)
