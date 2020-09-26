@@ -106,7 +106,7 @@ def main(encrypted_string):
     key = sum(map(ord,pal_info[0]))+pal_info[1]
     count = 1
     curr_text = encrypt(original,key)
-    while curr_text!=encrypted_string:
+    for i in range(1000):
         pal_info =  palindromeSubStrs(curr_text)
         key = sum(map(ord,pal_info[0]))+pal_info[1]
         count += 1
