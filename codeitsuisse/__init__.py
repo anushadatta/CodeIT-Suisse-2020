@@ -9,4 +9,5 @@ import codeitsuisse.routes.salad
 import codeitsuisse.routes.fruit
 import codeitsuisse.routes.inventory
 import codeitsuisse.routes.clean
+import codeitsuisse.routes.cluster
 
