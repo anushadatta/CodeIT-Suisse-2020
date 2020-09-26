@@ -7,3 +7,4 @@ import codeitsuisse.routes.sort
 import codeitsuisse.routes.geometry
 import codeitsuisse.routes.salad
 import codeitsuisse.routes.fruit
+import codeitsuisse.routes.inventory
