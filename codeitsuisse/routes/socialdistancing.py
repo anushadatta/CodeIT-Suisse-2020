@@ -9,9 +9,6 @@ from codeitsuisse import app;
 
 logger = logging.getLogger(__name__)
 
-def choose(n, r):
-    return int(math.factorial(n) / (math.factorial(r) * math.factorial(n-r)))
-
 @app.route('/social-distancing', methods=['POST'])
 def socialdistancing():
     data = request.get_json()
@@ -19,6 +16,9 @@ def socialdistancing():
     tests_dict = data["tests"]
     print(tests_dict)
     combinations= {}
+
+    def choose(n, r):
+        return int(math.factorial(n) / (math.factorial(r) * math.factorial(n-r)))
 
     for key,dict_data in tests_dict.items():
         seats = dict_data["seats"]
@@ -31,6 +31,6 @@ def socialdistancing():
 
     result = {}
     result["answers"] = combinations
-
-    return json.dumps(result)
+    
+    return jsonify(result)
     

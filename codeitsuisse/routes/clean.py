@@ -11,78 +11,51 @@ logger = logging.getLogger(__name__)
 @app.route('/clean_floor', methods=['POST'])
 def clean():
     data = request.get_json()
-    print(data)
-    data = data["tests"]
 
-    moves_answer = {}
-
-    for key, value in data.items():
-        dirty_floor = value["floor"]
-        moves_count = 0
-
-        # Counting moves for dirty floor
-        for i in range(len(dirty_floor)-1):
-            
-            # Current spot
-            current_spot = dirty_floor[i]
-            
-            # Next spot
-            next_spot = dirty_floor[i+1]
-            
-            # CASE 1
-            if current_spot == 0:
-                continue 
-            
-            # CASE 2
-            # eg. 5, 5
-            if current_spot == next_spot:
-                moves_count += current_spot + next_spot
-                if (i+1) == (len(dirty_floor)-1): # Last index, whole floor is now clean
-                    break
-                else:
-                    moves_count += 1
-                    dirty_floor[i+1] = 1
-
-            # CASE 3
-            # eg. 1,3
-            if current_spot < next_spot:
-                difference = abs(current_spot-next_spot)
-                if(difference%2==0): # Even
-                    moves_count += max(current_spot, next_spot) 
-                    if (i+1) == (len(dirty_floor)-1): # Last index, whole floor is now clean
-                        break
-                    else:
-                        moves_count += 1
-                        dirty_floor[i+1] = 1
-                else: # Odd
-                    moves_count += ((current_spot + next_spot)*2) 
-                    if (i+1) == (len(dirty_floor)-1): # Last index, whole floor is now clean
-                        break
-                    else:
-                        moves_count += 1
-                        dirty_floor[i+1] = 1
-            
-            # CASE 4
-            if current_spot > next_spot:
-                difference = abs(current_spot-next_spot)
-                if(difference%2==0): # Even
-                    moves_count += (max(current_spot, next_spot)*2) 
-                    if (i+1) == (len(dirty_floor)-1): # Last index, whole floor is now clean
-                        break
-                    else:
-                        moves_count += 1
-                        dirty_floor[i+1] = 1
-                else: # Odd
-                    moves_count += (max(current_spot, next_spot)*2) 
-                    if (i+1) == (len(dirty_floor)-1): # Last index, whole floor is now clean
-                        break
-                    else:
-                        moves_count += 1
-                        dirty_floor[i+1] = 0
-
-        moves_answer[key] = moves_count
+    tests = data['tests']
+    cleaning_moves = {}
     
-    final_answer = {}
-    final_answer["answers"] = moves_answer
+    # Iterate through all floors
+    for key in tests.keys():
+        minimum_moves = 0
+        floor = tests[key]['floor']
+        n = len(floor)
 
-    return jsonify(final_answer)
+        # Calculating moves for one floor
+        for i in range(n - 1):
+            minimum_moves += floor[i]*2
+
+            # Special Case: Check for second last spot
+            if (i != n-2):
+                if floor[i+1] > 0:
+                    floor[i+1] = floor[i+1] - 1
+                else:
+                    floor[i+1] = floor[i+1] + 1
+                minimum_moves += 1 
+
+            # CASE 1: dirt level (current spot > next spot)
+            if floor[i] > floor[i+1]:
+                difference = abs(floor[i] - floor[i+1])
+                if difference % 2 != 0:
+                    floor[i+1] = 1
+                else:
+                    floor[i+1] = 0
+            else:
+                # CASE 2: dirt level (current spot <= next spot)
+                floor[i+1] = abs(floor[i+1] - floor[i])
+
+        # Check last spot!!!
+        if (floor[n-1] != 0):
+            floor[n-1] -= 1
+            minimum_moves += 1
+
+            if floor[n-1] % 2 != 0:
+                minimum_moves += 1
+
+        minimum_moves += 2 * floor[n-1]
+        cleaning_moves[key] = minimum_moves
+        
+    result = {}
+    result["answers"] = cleaning_moves
+
+    return jsonify(result)
