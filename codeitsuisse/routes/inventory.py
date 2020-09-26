@@ -1,7 +1,7 @@
 import logging
 import json
 import numpy as np
-from flask import request, jsonify;
+from flask import request, jsonify, Response;
 
 from codeitsuisse import app;
 
@@ -48,11 +48,6 @@ def editDistDP(str1, str2):
     # print(np.array(dp))
     # print(np.array(string_list))
     return dp[m][n],string_list[m][n] 
-  
-str2 = "Amsungh"
-str1 = "samsung"
-  
-print(editDistDP(str1, str2)) 
 
 
 @app.route('/inventory-management', methods=['POST'])
@@ -76,7 +71,8 @@ def edits_min():
         results = list(map(lambda x:x[1], results))
         response.append({"searchItemName":search_string,"searchResult":results})
 
-    return jsonify(response)
+    return Response(response = json.dumps(response),status=200,mimetype="application/json")
+    # return jsonify(response)
 
 
 
