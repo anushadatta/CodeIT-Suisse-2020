@@ -76,7 +76,7 @@ def edits_min():
         results = list(map(lambda x:x[1], results))
         response.append({"searchItemName":search_string,"searchResult":results})
 
-    return json.dumps(response)
+    return jsonify(response)
 
 
 
