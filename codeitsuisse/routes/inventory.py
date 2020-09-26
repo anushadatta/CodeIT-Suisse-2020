@@ -57,8 +57,8 @@ print(editDistDP(str1, str2))
 
 @app.route('/inventory-management', methods=['POST'])
 def edits_min():
-    print(data_list)
     data_list = request.get_json()
+    print(data_list)
     response = []
     for data in data_list:
         search_string = data['searchItemName']
