@@ -16,7 +16,6 @@ def clean():
     moves_answer = {}
 
     for key, value in data.items():
-        print(key, value)
         dirty_floor = value["floor"]
         moves_count = 0
 
@@ -25,12 +24,6 @@ def clean():
             
             # Current spot
             current_spot = dirty_floor[i]
-            
-            # # Previous Spot
-            # if i>0:
-            #     prev_spot = dirty_floor[i-1]
-            # else:
-            #     prev_spot = -1
             
             # Next spot
             if i < (len(dirty_floor)-1):
@@ -42,20 +35,47 @@ def clean():
             # Count
             if current_spot == 0:
                 continue 
-            if current_spot <= next_spot:
-                moves_count += (current_spot * 2)
-                dirty_floor[i+1] = next_spot - current_spot
-
+            # eg. 5, 5
+            if current_spot == next_spot:
+                moves_count += current_spot + next_spot
+                if (i+1) == (len(dirty_floor)-1): # Last index, whole floor is now clean
+                    break
+                else:
+                    dirty_floor[i+1] = 1
+            # eg. 1,3
+            if current_spot < next_spot:
+                difference = abs(current_spot-next_spot)
+                if(difference%2==0): # Even
+                    moves_count += max(current_spot, next_spot) + 1
+                    if (i+1) == (len(dirty_floor)-1): # Last index, whole floor is now clean
+                        break
+                    else:
+                        dirty_floor[i+1] = 1
+                else: # Odd
+                    moves_count += ((current_spot + next_spot)*2) + 1
+                    if (i+1) == (len(dirty_floor)-1): # Last index, whole floor is now clean
+                        break
+                    else:
+                        dirty_floor[i+1] = 1
+                
             if current_spot > next_spot:
-                moves_count += (current_spot * 2)
-                dirty_floor[i+1] = current_spot - next_spot 
-        
+                difference = abs(current_spot-next_spot)
+                if(difference%2==0): # Even
+                    moves_count += (max(current_spot, next_spot)*2) + 1
+                    if (i+1) == (len(dirty_floor)-1): # Last index, whole floor is now clean
+                        break
+                    else:
+                        dirty_floor[i+1] = 1
+                else: # Odd
+                    moves_count += (max(current_spot, next_spot)*2) + 1
+                    if (i+1) == (len(dirty_floor)-1): # Last index, whole floor is now clean
+                        break
+                    else:
+                        dirty_floor[i+1] = 0
+
         moves_answer[key] = moves_count
     
-    print(moves_answer)
     final_answer = {}
     final_answer["answers"] = moves_answer
-
-    print(final_answer)
 
     return jsonify(final_answer)
