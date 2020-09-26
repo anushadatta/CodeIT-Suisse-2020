@@ -104,6 +104,8 @@ def calc_original_string(encrypted_string):
 
 def main(encrypted_string):
     original = calc_original_string(encrypted_string)
+    if original == encrypted_string:
+        return 0,original
     pal_info =  palindromeSubStrs(original)
     key = sum(map(ord,pal_info[0]))+pal_info[1]
     count = 1
