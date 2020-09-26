@@ -58,20 +58,20 @@ print(editDistDP(str1, str2))
 
 @app.route('/inventory-management', methods=['POST'])
 def edits_min():
-    data = request.get_json()[0]
-    print(data)
-    search_string = data['searchItemName']
-    items = data['items']
-    items.sort()
-    results = []
-    for item in items:
-        curr_result = editDistDP(search_string, item)
-        print(curr_result)
-        results.append(curr_result)
-    results.sort(key=lambda x:x[0])
-    results = list(map(lambda x:x[1], results))
-    response =[{"searchItemName":search_string,"searchResult":results[:10]}]
-
+    data_list = request.get_json()
+    response = []
+    for data in data_list:
+        search_string = data['searchItemName']
+        items = data['items']
+        items.sort()
+        results = []
+        for item in items:
+            curr_result = editDistDP(search_string, item)
+            print(curr_result)
+            results.append(curr_result)
+        results.sort(key=lambda x:x[0])
+        results = list(map(lambda x:x[1], results))
+        response.append({"searchItemName":search_string,"searchResult":results[:10]})
     return json.dumps(response)
 
 
