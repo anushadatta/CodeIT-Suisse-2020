@@ -11,7 +11,7 @@ def create_gmo_sequence(gene):
     
 
     # Count characters in string 
-    print(logging.Debug(gene))
+    logger.Debug(gene)
     count_dict = dict(Counter(gene))
     genes = ["A","G","C","T"]
     for i in genes:
@@ -100,8 +100,8 @@ def gmo():
         gmo_string = gmo_dict["geneSequence"]
         
         answer = create_gmo_sequence(gmo_string)
-        print(gmo_string)
-        print(answer)
+        # print(gmo_string)
+        logger.debug(answer)
         data["list"][gmo_dict_index]["geneSequence"] = answer
 
     return Response(response = json.dumps(data),status=200,mimetype="application/json")
