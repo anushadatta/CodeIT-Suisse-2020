@@ -80,7 +80,7 @@ def clean():
                         moves_count += 1
                         dirty_floor[i+1] = 0
 
-        moves_answer[str(int(key)-1)] = moves_count
+        moves_answer[key] = moves_count
     
     final_answer = {}
     final_answer["answers"] = moves_answer
