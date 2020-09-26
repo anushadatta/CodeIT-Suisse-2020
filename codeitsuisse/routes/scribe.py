@@ -112,7 +112,7 @@ def main(encrypted_string):
     print(key)
     count = 1
     curr_text = encrypt(original,key)
-    while True:
+    for i in range(10):
         if curr_text==encrypted_string:
             break
         # pal_info =  palindromeSubStrs(curr_text)
