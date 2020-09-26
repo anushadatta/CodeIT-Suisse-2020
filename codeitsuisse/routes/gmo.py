@@ -1,7 +1,7 @@
 import logging
 import json
 from collections import Counter
-from flask import request, jsonify;
+from flask import request, jsonify, Response
 
 from codeitsuisse import app;
 
@@ -13,6 +13,11 @@ def create_gmo_sequence(gene):
     # Count characters in string 
     print(gene)
     count_dict = dict(Counter(gene))
+    genes = ["A","G","C","T"]
+    for i in genes:
+        if i not in count_dict:
+            count_dict[i]=0
+
 
     # Add CC
     c_count = count_dict['C']
@@ -97,7 +102,7 @@ def gmo():
         answer = create_gmo_sequence(gmo_string)
         data["list"][gmo_dict_index]["geneSequence"] = answer
 
-    return json.dumps(data)
+    return Response(response = json.dumps(data),status=200,mimetype="application/json")
 
 
 
