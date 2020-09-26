@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 @app.route('/clean_floor', methods=['POST'])
 def clean():
     data = request.get_json()
+    print(data)
     data = data["tests"]
 
     moves_answer = {}
