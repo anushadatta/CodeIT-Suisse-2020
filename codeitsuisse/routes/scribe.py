@@ -124,6 +124,7 @@ def main(encrypted_string):
 @app.route('/bored-scribe', methods=['POST'])
 def scribeMoreLikeScrub():
     data = request.get_json()
+    print(data)
     result = []
     for i, val in enumerate(data):
         curr_vals = main(val["encryptedText"])
