@@ -7,23 +7,6 @@ from codeitsuisse import app;
 
 logger = logging.getLogger(__name__)
 
-# def rolling_window(prices_array, start_index, n):
-#     rolling_window = 0
-#     price_count = 0
-
-#     for i in range(start_index, len(prices_array)-n+1):
-#         current_price = prices_array[i]
-
-#         if price_count == n:
-#             return rolling_window
-
-#         if current_price == 'X':
-#             rolling_window = 0
-#             price_count = 0
-#         else:
-#             rolling_window += current_price
-#             price_count += 1
-
 @app.route('/salad-spree', methods=['POST'])
 def salad():
     data = request.get_json()
