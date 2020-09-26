@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 @app.route('/revisitgeometry', methods=['POST'])
 def geometry():
     data = request.get_json()
-
+    if "input" in data:
+        data=data["input"]
     points_arr_shape = []
     for i in data['shapeCoordinates']:
         points_arr_shape.append(sympy.Point(i["x"], i["y"]))
