@@ -11,5 +11,5 @@ import codeitsuisse.routes.inventory
 import codeitsuisse.routes.clean
 import codeitsuisse.routes.olympiad
 import codeitsuisse.routes.cluster
-
+import codeitsuisse.routes.gmo
 
