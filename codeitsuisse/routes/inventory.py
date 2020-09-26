@@ -40,7 +40,7 @@ def editDistDP(str1, str2):
                     string_list[i][j] = string_list[i-1][j]
                     
                 elif minimum==dp[i-1][j-1]:
-                    sign =  str2[j-1]
+                    sign = str2[j-1]
                     string_list[i][j] = string_list[i-1][j-1]
                     
 
@@ -58,7 +58,7 @@ print(editDistDP(str1, str2))
 @app.route('/inventory-management', methods=['POST'])
 def edits_min():
     data_list = request.get_json()
-    print(data_list)
+
     response = []
     for data in data_list:
         search_string = data['searchItemName']
@@ -66,12 +66,16 @@ def edits_min():
         items.sort()
         results = []
         for item in items:
-            curr_result = editDistDP(search_string, item)
+            curr_result = [*editDistDP( search_string,item),item]
             results.append(curr_result)
         results.sort(key=lambda x:x[0])
+        # print(*results,sep ="\n")
+        results = results[:10]
+        for i in results:
+            print(i[2])
         results = list(map(lambda x:x[1], results))
-        response.append({"searchItemName":search_string,"searchResult":results[:10]})
-    print(response)
+        response.append({"searchItemName":search_string,"searchResult":results})
+
     return json.dumps(response)
 
 
