@@ -12,4 +12,5 @@ import codeitsuisse.routes.clean
 import codeitsuisse.routes.olympiad
 import codeitsuisse.routes.cluster
 import codeitsuisse.routes.gmo
+import codeitsuisse.routes.scribe
 

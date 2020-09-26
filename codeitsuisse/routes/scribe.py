@@ -1,0 +1,135 @@
+import logging
+import json
+
+from flask import request, jsonify;
+
+from codeitsuisse import app;
+
+logger = logging.getLogger(__name__)
+
+def palindromeSubStrs(s): 
+    m = dict() 
+    n = len(s) 
+
+    R = [[0 for x in range(n+1)] for x in range(2)] 
+  
+    s = "@" + s + "#"
+  
+    for j in range(2): 
+        rp = 0
+        R[j][0] = 0
+  
+        i = 1
+        while i <= n: 
+            while s[i - rp - 1] == s[i + j + rp]: 
+                rp += 1 
+            R[j][i] = rp 
+            k = 1
+            while (R[j][i - k] != rp - k) and (k < rp): 
+                R[j][i+k] = min(R[j][i-k], rp - k) 
+                k += 1
+            rp = max(rp - k, 0) 
+            i += k 
+  
+    s = s[1:len(s)-1] 
+  
+    m[s[0]] = 1
+    for i in range(1,n): 
+        for j in range(2): 
+            for rp in range(R[j][i],0,-1): 
+                m[s[i - rp - 1 : i - rp - 1 + 2 * rp + j]] = 1
+        m[s[i]] = 1
+    res = []
+    for i, val in m.items():
+        if len(i)>1:
+            res.append(i)
+    maxima = max(res,key=lambda x:len(x))
+    # a = sum(map(lambda x:ord(x),maxima)) +len(res)
+    return maxima,len(res)
+
+def encrypt(text,s):
+    result = ""
+
+    for i in range(len(text)):
+        char = text[i]
+        result += chr((ord(char) + s - 97) % 26 + 97)
+    return result
+
+text = "xntlhfgsvzmssndloknxaqtsdenqbdenqsgnrdbzrdr"
+
+def calc_score(inp):
+    freq_dict = {
+        "E":21912,
+        "T":16587,
+        "A":14810,
+        "O":14003,
+        "I":13318,
+        "N":12666,
+        "S":11450,
+        "R":10977,
+        "H":10795,
+        "D":7874,
+        "L":7253,
+        "U":5246,
+        "C":4943,
+        "M":4761,
+        "F":4200,
+        "Y":3853,
+        "W":3819,
+        "G":3693,
+        "P":3316,
+        "B":2715,
+        "V":2019,
+        "K":1257,
+        "X":315,
+        "Q":205,
+        "J":188,
+        "Z":128
+    }
+    score = 0
+    for i in inp:
+        score+=freq_dict[i.upper()]
+    return score
+
+def calc_original_string(encrypted_string):
+    maxi = encrypt(encrypted_string,0)
+    for i in range(26):
+        cur = (encrypt(encrypted_string,i+1))
+        if(calc_score(cur)>calc_score(maxi)):
+            maxi = cur
+
+    return maxi
+
+def main(encrypted_string):
+    original = calc_original_string(encrypted_string)
+    pal_info =  palindromeSubStrs(original)
+    key = sum(map(ord,pal_info[0]))+pal_info[1]
+    count = 1
+    curr_text = encrypt(original,key)
+    while curr_text!=encrypted_string:
+        pal_info =  palindromeSubStrs(curr_text)
+        key = sum(map(ord,pal_info[0]))+pal_info[1]
+        count += 1
+        curr_text = encrypt(curr_text,key)
+
+    return count,original
+
+# main("oxzbzxofpxkbkdifpemxifkaoljb")
+
+
+@app.route('/bored-scribe', methods=['POST'])
+def scribeMoreLikeScrub():
+    data = request.get_json()
+    result = []
+    for i, val in enumerate(data):
+        curr_vals = main(val["encryptedText"])
+        curr_res = {
+            "id":val["id"],
+            "encryptionCount":curr_vals[0],
+            "originalText":curr_vals[1],
+        }
+        result.append(curr_res)
+
+
+    return jsonify(result)
+
