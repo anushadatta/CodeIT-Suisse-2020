@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 def choose(n, r):
     return int(math.factorial(n) / (math.factorial(r) * math.factorial(n-r)))
 
-@app.route('/social-distancing', methods=['POST'])
+@app.route('/social_distancing', methods=['POST'])
 def socialdistancing():
     data = request.get_json()
     # print(data)
