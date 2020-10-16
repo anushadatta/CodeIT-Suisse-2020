@@ -10,6 +10,10 @@ logger = logging.getLogger(__name__)
 
 @app.route('/clean_floor', methods=['POST'])
 def clean():
+    '''
+    API endpoint
+    main function used for the clean the floor problem
+    '''
     data = request.get_json()
 
     tests = data['tests']

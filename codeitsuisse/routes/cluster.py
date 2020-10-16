@@ -9,6 +9,9 @@ logger = logging.getLogger(__name__)
 
 
 def get_neighbors(i,j,max_rows,max_cols):
+    '''
+    given a cell in a grid, get a list of all its neighbours
+    '''
     result = []
     for _i in range(-1,2):
         for _j in range(-1,2):
@@ -19,6 +22,9 @@ def get_neighbors(i,j,max_rows,max_cols):
 
 
 def find_cycles(map_arr):
+    '''
+    function which implements DFS to find the number of cycles in a grid graph
+    '''
     visited = [[False for j in i] for i in map_arr]
     count = 0
     for i in range(len(map_arr)):
@@ -48,6 +54,9 @@ def find_cycles(map_arr):
 
 @app.route('/cluster', methods=['POST'])
 def cluster():
+    '''
+    API endpoint used to calculate the scores required by credit suisse
+    '''
     data = request.get_json()
     cycles = find_cycles(data)
     response = {

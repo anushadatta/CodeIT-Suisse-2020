@@ -8,7 +8,9 @@ from codeitsuisse import app;
 logger = logging.getLogger(__name__)
 
 def create_gmo_sequence(gene):
-    
+    '''
+    function used to create the most drought resistant gmo sequence
+    '''
 
     # Count characters in string 
     # logger.debug(gene)
@@ -20,15 +22,16 @@ def create_gmo_sequence(gene):
             count_dict[i]=0
 
 
-    # Add CC
+
     c_count = count_dict['C']
     agct_count = 0
     cc_count = 0
-    # Add AGCT
+
     a_count = count_dict['A']
     c_count = count_dict['C']
     g_count = count_dict['G']
     t_count = count_dict['T']
+    # counting all required 2 AGCTs
     while a_count >= 2 and c_count >= 2 and g_count >= 2 and t_count >= 2:
 
         count_dict['A'] = count_dict['A'] - 2
@@ -41,13 +44,14 @@ def create_gmo_sequence(gene):
         g_count = count_dict['G']
         t_count = count_dict['T']
 
+    # counting all required CCs
     while c_count >= 2:
 
         count_dict['C'] = count_dict['C'] - 2
         cc_count+=1
         c_count = count_dict['C']
 
-    
+    # counting all required 1 AGCTs
     while a_count >= 1 and c_count >= 1 and g_count >= 1 and t_count >= 1:
 
         count_dict['A'] = count_dict['A'] - 1
@@ -59,16 +63,9 @@ def create_gmo_sequence(gene):
         c_count = count_dict['C']
         g_count = count_dict['G']
         t_count = count_dict['T']
-    # print(count_dict,agct_count,cc_count)
+
     # Sprinkle remaining characters without AAA formation
     result = ""
-
-    # print(cc_count)
-    # print(agct_count)
-    # print(g_count)
-    # print(t_count)
-    # print(a_count)
-    
 
     # adding ccs to the string
     for i in range(agct_count):
@@ -94,6 +91,9 @@ def create_gmo_sequence(gene):
 
 @app.route('/intelligent-farming', methods=['POST'])
 def gmo():
+    '''
+    API endpoint used for intelligent farming problem
+    '''
     data = request.get_json()
 
     for gmo_dict_index in range(len(data["list"])):

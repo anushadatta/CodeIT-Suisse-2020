@@ -10,6 +10,9 @@ logger = logging.getLogger(__name__)
 
 @app.route('/fruitbasket', methods=['POST'])
 def fruit():
+    '''
+    function used to calculate the fruit basket score for the magical fruit problem
+    '''
     data = request.get_data()
     print(data)
     data = json.loads(data)

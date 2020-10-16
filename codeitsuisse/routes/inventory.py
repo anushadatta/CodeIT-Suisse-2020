@@ -8,6 +8,9 @@ from codeitsuisse import app;
 logger = logging.getLogger(__name__)
 
 def editDistDP(str1, str2): 
+    '''
+    function to calculate the edit distance along with the edit string
+    '''
     m = len(str1)
     n = len(str2)
     dp = [[0 for x in range(n + 1)] for x in range(m + 1)] 
@@ -52,6 +55,9 @@ def editDistDP(str1, str2):
 
 @app.route('/inventory-management', methods=['POST'])
 def edits_min():
+    '''
+    API endpoint used for inventory management
+    '''
     data_list = request.get_json()
 
     response = []

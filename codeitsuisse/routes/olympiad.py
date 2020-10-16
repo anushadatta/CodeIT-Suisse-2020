@@ -10,6 +10,9 @@ logger = logging.getLogger(__name__)
 
 @app.route('/olympiad-of-babylon', methods=['POST'])
 def olympiad():
+    '''
+    API endpoint used for olympiad of babylon
+    '''
     data = request.get_json()
     
     books_time = data["books"]

@@ -9,6 +9,9 @@ logger = logging.getLogger(__name__)
 
 @app.route('/revisitgeometry', methods=['POST'])
 def geometry():
+    '''
+    function used to solve the revist geometry problem
+    '''
     data = request.get_json()
     if "input" in data:
         data=data["input"]

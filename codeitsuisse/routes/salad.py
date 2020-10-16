@@ -9,6 +9,9 @@ logger = logging.getLogger(__name__)
 
 @app.route('/salad-spree', methods=['POST'])
 def salad():
+    '''
+    API endpoint used for salad spree endpoint
+    '''
     data = request.get_json()
 
     number_of_salads = data["number_of_salads"]

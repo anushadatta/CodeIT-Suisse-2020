@@ -8,6 +8,9 @@ from codeitsuisse import app;
 logger = logging.getLogger(__name__)
 
 def palindromeSubStrs(s): 
+    '''
+    function to calculate all the required palindromes
+    '''
     m = dict() 
     n = len(s) 
 
@@ -46,19 +49,23 @@ def palindromeSubStrs(s):
     if(len(res)==0):
         return "",0
     maxima = max(res,key=lambda x:len(x))
-    # a = sum(map(lambda x:ord(x),maxima)) +len(res)
+
     return maxima,len(res)
 
 def encrypt(text,s):
+    '''
+    caesar cypher implementation
+    '''
     result = ""
     for i in range(len(text)):
         char = text[i]
         result += chr((ord(char) + s - 97) % 26 + 97)
     return result
 
-# text = "xntlhfgsvzmssndloknxaqtsdenqbdenqsgnrdbzrdr"
-
 def calc_score(inp):
+    '''
+    function to calculate a score for a word to assess whether its a real word
+    '''
     freq_dict = {
         "E":21912,
         "T":16587,
@@ -93,6 +100,9 @@ def calc_score(inp):
     return score
 
 def calc_original_string(encrypted_string):
+    '''
+    function to calculate original string given a caesar cypher
+    '''
     maxi = encrypt(encrypted_string,0)
     for i in range(26):
         cur = (encrypt(encrypted_string,i+1))
@@ -102,6 +112,9 @@ def calc_original_string(encrypted_string):
     return maxi
 
 def main(encrypted_string):
+    '''
+    main function to tackle the entire problem of bored scribe
+    '''
     original = calc_original_string(encrypted_string)
     if original == encrypted_string:
         return 0,original
@@ -115,7 +128,6 @@ def main(encrypted_string):
     for i in range(10):
         if curr_text==encrypted_string:
             break
-        # pal_info =  palindromeSubStrs(curr_text)
         key = sum(map(ord,encrypted_string[start:end]))+pal_info[1]
         count += 1
         curr_text = encrypt(curr_text,key)
@@ -127,6 +139,9 @@ def main(encrypted_string):
 
 @app.route('/bored-scribe', methods=['POST'])
 def scribeMoreLikeScrub():
+    '''
+    API end point used to by credit suisse to calculate the required result
+    '''
     data = request.get_json()
     print(data)
     result = []
