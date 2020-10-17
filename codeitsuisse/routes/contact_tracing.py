@@ -9,6 +9,9 @@ from codeitsuisse import app;
 logger = logging.getLogger(__name__)
 
 def difference(g1, g2): 
+    '''
+    function to calculate difference between gene1 and 2
+    '''
         difference = 0
         for i in range(len(g1)):
             if g1[i] != g2[i]:
@@ -16,6 +19,9 @@ def difference(g1, g2):
         return difference 
 
 def check_for_nonsilent(g1, g2):
+    '''
+    function to determine if strings are non silent
+    '''
         g1 = g1.split('-')
         g2 = g2.split('-')
         for i in range(len(g1)):
@@ -24,7 +30,10 @@ def check_for_nonsilent(g1, g2):
         return False
 
 @app.route('/contact_trace', methods=['POST'])
-def contact_tracing():   
+def contact_tracing(): 
+    '''
+    API endpoint used for the contact trace problem
+    '''
     result = []
     genome_differences = float('inf')
 

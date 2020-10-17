@@ -9,6 +9,9 @@ logger = logging.getLogger(__name__)
 
 @app.route('/encryption', methods=['POST'])
 def evaluateSecretMessage():
+    '''
+    API endpoint used for secret message evaluatin
+    '''
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     # inputValue = data.get("input");
@@ -20,6 +23,9 @@ def evaluateSecretMessage():
     return jsonify(result)
 
 def encrypt(n, text):
+    '''
+    python function for encrypting
+    '''
     # removing spaces and non alpha num characters
     processed_text = ""
     for ch in text:

@@ -14,6 +14,9 @@ def choose(n, r):
 
 @app.route('/social_distancing', methods=['POST'])
 def socialdistancing():
+    '''
+    API endpoint for social distancing problem
+    '''
     data = request.get_json()
     # print(data)
     tests_dict = data["tests"]
